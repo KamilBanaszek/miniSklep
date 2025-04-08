@@ -16,7 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from webMyApp.views import product_list, user_login, user_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', user_login, name='login'),
+    path('products/', product_list, name='product_list'),
+    path('logout/', user_logout, name='logout'),
 ]
