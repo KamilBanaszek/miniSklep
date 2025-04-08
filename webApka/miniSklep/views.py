@@ -31,6 +31,19 @@ def user_login(request):
     return render(request, 'login.html', {'form': form})
 
 @login_required
+def product_list(request):
+    products = Product.objects.all()
+    form = ProductForm()
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+
+    return render(request, 'products/list.html', {'products': products, 'form': form})
+
+@login_required
 def user_logout(request):
     logout(request)
     return redirect('login')
