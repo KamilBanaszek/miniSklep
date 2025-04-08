@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webMyApp.views import product_list, user_login, user_logout
+from miniSklep.views import product_list, user_login, user_logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),

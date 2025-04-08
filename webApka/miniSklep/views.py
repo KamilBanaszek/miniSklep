@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django import forms
 from .models import Product
 
 class ProductForm(forms.ModelForm):
@@ -16,7 +17,7 @@ class ProductForm(forms.ModelForm):
 
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect('list')
+        return redirect('product_list')
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -24,11 +25,11 @@ def user_login(request):
             user = form.get_user()
             if user.is_superuser:
                 login(request, user)
-                return redirect('list')
+                return redirect('product_list')
     else:
         form = AuthenticationForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'products/login.html', {'form': form})
 
 @login_required
 def product_list(request):
