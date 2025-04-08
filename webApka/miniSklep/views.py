@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from .models import Product
 
 class ProductForm(forms.ModelForm):
@@ -27,3 +29,8 @@ def user_login(request):
         form = AuthenticationForm()
 
     return render(request, 'login.html', {'form': form})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('login')
